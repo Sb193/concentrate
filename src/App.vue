@@ -2,7 +2,9 @@
   <div>
     <nav v-if="isAuthenticated" class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand" href="#">Quản lý học sinh</a>
+        <a class="navbar-brand" href="/home">
+          <img src="@/assets/logo.png" width="60px" alt="">
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -16,17 +18,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/add-teacher">Add Teacher</router-link>
+            <li v-if="isAuthor" class="nav-item">
+              <router-link class="nav-link" to="/teacher">Giáo viên</router-link>
+            </li>
+            <li v-if="isAuthor" class="nav-item">
+              <router-link class="nav-link" to="/student">Học sinh</router-link>
+            </li>
+            <li v-if="isAuthor" class="nav-item">
+              <router-link class="nav-link" to="/subject">Môn học</router-link>
+            </li>
+            <li v-if="!isAuthor"  class="nav-item">
+              <router-link class="nav-link" to="/class">Quản lý lớp</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/create-class">Create Class</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/record-concentration">Record Concentration</router-link>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#" @click="logout">Logout</a>
+              <a class="nav-link" href="#" @click="logout">Đăng xuất</a>
             </li>
           </ul>
         </div>
@@ -42,11 +47,15 @@ export default {
   computed: {
     isAuthenticated() {
       return !!localStorage.getItem('token'); // Kiểm tra token có trong localStorage không
+    },
+    isAuthor() {
+      return localStorage.getItem('role') === "admin"; // Kiểm tra token có trong localStorage không
     }
   },
   methods: {
     logout() {
       localStorage.removeItem('token'); // Xóa token khi đăng xuất
+      localStorage.removeItem('role')
       this.$router.push('/login'); // Chuyển về trang đăng nhập
     }
   },

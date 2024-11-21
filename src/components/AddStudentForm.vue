@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-content-center align-items-center vh-100">
       <div class="card shadow" style="width: 400px; padding: 20px;">
-        <h3 class="text-center mb-4">Thêm Giáo Viên</h3>
+        <h3 class="text-center mb-4">Thêm Học Sinh</h3>
         <form @submit.prevent="submitForm">
           <div class="mb-3">
             <label for="username" class="form-label">Tên tài khoản</label>
@@ -53,7 +53,7 @@
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary w-100">Thêm Giáo Viên</button>
+          <button type="submit" class="btn btn-primary w-100">Thêm Học Sinh</button>
           <div v-if="message" :class="{'text-danger': error, 'text-success': !error}" class="mt-3">
             {{ message }}
           </div>
@@ -82,7 +82,7 @@
   
         try {
           const token = localStorage.getItem("token");
-          const response = await fetch("https://concentrateapi.sblearning.workers.dev/api/teacher/create", {
+          const response = await fetch("https://concentrateapi.sblearning.workers.dev/api/student/create", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -105,7 +105,7 @@
             return;
           }
   
-          this.message = result.message || "Thêm giáo viên thành công!";
+          this.message = result.message || "Thêm học sinh thành công!";
           this.username = "";
           this.password = "";
           this.name = "";

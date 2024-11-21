@@ -1,6 +1,5 @@
 <template>
     <div class="container mt-5">
-      <h3>Create Class</h3>
       <CreateClassForm />
     </div>
   </template>

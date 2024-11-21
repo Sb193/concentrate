@@ -3,33 +3,33 @@
 
     <div class="container mt-5">
       <div class="card mx-auto p-4 shadow">
-        <h3 class="text-center mb-4">Login</h3>
+        <h3 class="text-center mb-4">Đăng nhập</h3>
         <form @submit.prevent="login">
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
+            <label for="username" class="form-label">Tài khoản</label>
             <input
               type="text"
               id="username"
               class="form-control shadow"
               v-model="username"
-              placeholder="Enter your username"
+              placeholder="Nhập tài khoản của bạn..."
               required
             />
           </div>
           <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Mật khẩu</label>
             <input
               type="password"
               id="password"
               class="form-control shadow"
               v-model="password"
-              placeholder="Enter your password"
+              placeholder="Nhập mật khẩu của bạn..."
               required
             />
           </div>
           <div v-if="error" class="alert alert-danger">{{ error }}</div>
           <button type="submit" class="btn shadow btn-primary w-100">Login</button>
-          <button type="button" class="btn btn-none border shadow w-100 mt-2"><router-link class="nav-link" to="/register">Register</router-link></button>
+          
         </form>
       </div>
     </div>
@@ -67,7 +67,8 @@
   
           const data = await response.json();
           localStorage.setItem('token', data.token);
-          alert('Login successful!');
+          localStorage.setItem('role', data.role);
+          window.location.href = '/home'
         } catch (error) {
           this.error = 'An error occurred. Please try again later.';
         }
